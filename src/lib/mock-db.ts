@@ -62,6 +62,12 @@ type CreateRegistrationInput = {
     photoUrl: string;
 };
 
+type ContactMessageInput = {
+    name: string;
+    email: string;
+    message: string;
+};
+
 export async function createRegistration(input: CreateRegistrationInput) {
     await delay();
 
@@ -144,4 +150,13 @@ export async function getGalleryImagesByAlbum(albumId: string) {
 
     const images = galleryImages.filter((img) => img.albumId === albumId);
     return { album, images };
+}
+
+export async function submitContactMessage(input: ContactMessageInput) {
+    await delay();
+
+    if (!input.name || !input.email || !input.message) {
+        throw new Error("MISSING_FIELDS");
+    }
+    return { success: true };
 }
