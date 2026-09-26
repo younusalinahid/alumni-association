@@ -2,6 +2,9 @@ export type Batch = { id: string; name: string };
 export type Department = { id: string; name: string };
 
 export type AlumniStatus = "PENDING" | "APPROVED" | "REJECTED";
+export type NoticeStatus = "DRAFT" | "PUBLISHED";
+export type Role = "ADMIN" | "ALUMNI";
+
 
 export type Alumni = {
     id: string;
@@ -18,7 +21,6 @@ export type Alumni = {
     photoUrl: string | null;
 };
 
-export type Role = "ADMIN" | "ALUMNI";
 
 export type User = {
     id: string;
@@ -30,7 +32,9 @@ export type User = {
 export type Notice = {
     id: string;
     title: string;
+    slug: string;
     body: string;
+    status: NoticeStatus;
     publishedAt: string;
 };
 
@@ -111,7 +115,9 @@ if (!globalForMockDb.__mockStore) {
             {
                 id: "n1",
                 title: "Annual Alumni Reunion 2026",
+                slug: "annual-alumni-reunion-2026",
                 body: "We are excited to announce the Annual Alumni Reunion 2026. Stay connected!",
+                status: "PUBLISHED",
                 publishedAt: "2026-04-15",
             },
         ],

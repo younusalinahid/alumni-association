@@ -6,22 +6,12 @@
 // each function, while keeping the function names and return shapes
 // the same. So no other application code will need to change.
 
-import { alumni, batches, departments, notices, users, galleryAlbums, galleryImages, Alumni } from "./mock-data";import Undici from "undici-types";
-import errors = Undici.errors;
+import {alumni, batches, departments, notices, users, galleryAlbums, galleryImages, Alumni, Notice} from "./mock-data";import Undici from "undici-types";
 
-export async function getPublishedNotices() {
-    await delay();
-    return notices;
-}
-
-// This small delay function simulates the slight delay that occurs
-// during a real database query (network delay).
 function delay(ms: number = 150): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Adds the complete batch/department objects to the Alumni data.
-// (In Prisma, this is called "include" / "relation")
 function withRefs(a: Alumni) {
     return {
         ...a,
@@ -66,6 +56,11 @@ type ContactMessageInput = {
     name: string;
     email: string;
     message: string;
+};
+
+type CreateNoticeInput = {
+    title: string;
+    body: string;
 };
 
 export async function createRegistration(input: CreateRegistrationInput) {
@@ -159,4 +154,64 @@ export async function submitContactMessage(input: ContactMessageInput) {
         throw new Error("MISSING_FIELDS");
     }
     return { success: true };
+}
+
+export async function getPublishedNotices() {
+    await delay();
+    return notices.filter((n) => n.status === "PUBLISHED");
+}
+
+type CreateNoticeInput = {
+    title: string;
+    body: string;
+};
+
+export async function getAllNotices() {
+    await delay();
+    return notices;
+}
+
+export async function createNotice(input: CreateNoticeInput) {
+    await delay();
+
+    const slug = input.title
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9-]/g, "");
+
+    const newNotice: Notice = {
+        id: `n${notices.length + 1}`,
+        title: input.title,
+        slug,
+        body: input.body,
+        status: "DRAFT",
+        publishedAt: new Date().toISOString().slice(0, 10),
+    };
+
+    notices.push(newNotice);
+    return newNotice;
+}
+
+export async function setNoticeStatus(id: string, status: "PUBLISHED" | "DRAFT") {
+    await delay();
+
+    const record = notices.find((n) => n.id === id);
+    if (!record) {
+        throw new Error("NOT_FOUND");
+    }
+
+    record.status = status;
+    return record;
+}
+
+export async function deleteNotice(id: string) {
+    await delay();
+
+    const index = notices.findIndex((n) => n.id === id);
+    if (index === -1) {
+        throw new Error("NOT_FOUND");
+    }
+
+    notices.splice(index, 1);
 }
