@@ -103,7 +103,7 @@ export const notices: Notice[] = [
     {
         id: "n1",
         title: "Annual Alumni Reunion 2026",
-        body: "Join us for the annual reunion on the campus ground. Registration opens soon.",
-        publishedAt: "2026-09-20",
+        body: "We are excited to announce the Annual Alumni Reunion 2026. Stay connected!",
+        publishedAt: "2026-04-15",
     },
 ];

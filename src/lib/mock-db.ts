@@ -33,8 +33,9 @@ export async function getStats() {
     await delay();
     return {
         totalAlumni: alumni.filter((a) => a.status === "APPROVED").length,
-        pending: alumni.filter((a) => a.status === "PENDING").length,
+        registeredMembers: users.filter((u) => u.role === "ALUMNI").length,
         batches: batches.length,
+        pending: alumni.filter((a) => a.status === "PENDING").length,
     };
 }
 
