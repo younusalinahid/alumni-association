@@ -6,8 +6,7 @@
 // each function, while keeping the function names and return shapes
 // the same. So no other application code will need to change.
 
-import { alumni, batches, departments, notices, users, Alumni } from "./mock-data";
-import Undici from "undici-types";
+import { alumni, batches, departments, notices, users, galleryAlbums, galleryImages, Alumni } from "./mock-data";import Undici from "undici-types";
 import errors = Undici.errors;
 
 export async function getPublishedNotices() {
@@ -128,4 +127,21 @@ export async function setAlumniStatus(id: string, status: "APPROVED" | "REJECTED
 
     record.status = status;
     return record;
+}
+
+export async function getGalleryAlbums() {
+    await delay();
+    return galleryAlbums.map((album) => ({
+        ...album,
+        imageCount: galleryImages.filter((img) => img.albumId === album.id).length,
+    }));
+}
+
+export async function getGalleryImagesByAlbum(albumId: string) {
+    await delay();
+    const album = galleryAlbums.find((a) => a.id === albumId);
+    if (!album) return null;
+
+    const images = galleryImages.filter((img) => img.albumId === albumId);
+    return { album, images };
 }

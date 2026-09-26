@@ -34,10 +34,25 @@ export type Notice = {
     publishedAt: string;
 };
 
+export type GalleryImage = {
+    id: string;
+    albumId: string;
+    imageUrl: string;
+    caption: string;
+};
+
+export type GalleryAlbum = {
+    id: string;
+    title: string;
+    coverImage: string;
+};
+
 type MockStore = {
     alumni: Alumni[];
     users: User[];
     notices: Notice[];
+    galleryAlbums: GalleryAlbum[];
+    galleryImages: GalleryImage[];
 };
 
 const globalForMockDb = globalThis as unknown as { __mockStore?: MockStore };
@@ -100,12 +115,25 @@ if (!globalForMockDb.__mockStore) {
                 publishedAt: "2026-04-15",
             },
         ],
+        galleryAlbums: [
+            { id: "g1", title: "Annual Reunion 2024", coverImage: "/images/gallery/image1.png" },
+            { id: "g2", title: "Convocation Ceremony", coverImage: "/images/gallery/image4.jpg" },
+        ],
+        galleryImages: [
+            { id: "gi1", albumId: "g1", imageUrl: "/images/gallery/image1.png", caption: "Welcome speech" },
+            { id: "gi2", albumId: "g1", imageUrl: "/images/gallery/image2.png", caption: "Group photo" },
+            { id: "gi3", albumId: "g1", imageUrl: "/images/gallery/image3.png", caption: "Dinner session" },
+            { id: "gi4", albumId: "g2", imageUrl: "/images/gallery/image4.jpg", caption: "Certificate handover" },
+            { id: "gi5", albumId: "g2", imageUrl: "/images/gallery/image5.png", caption: "Stage view" },
+        ],
     };
 }
 
 export const alumni = globalForMockDb.__mockStore.alumni;
 export const users = globalForMockDb.__mockStore.users;
 export const notices = globalForMockDb.__mockStore.notices;
+export const galleryAlbums = globalForMockDb.__mockStore.galleryAlbums;
+export const galleryImages = globalForMockDb.__mockStore.galleryImages;
 
 export const batches: Batch[] = [
     { id: "b2018", name: "Batch 2018" },
