@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {getStats, getPublishedNotices} from "@/lib/mock-db";
 import StatCard from "@/components/ui/StatCard";
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
     const stats = await getStats();

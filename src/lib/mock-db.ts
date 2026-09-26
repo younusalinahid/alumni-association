@@ -7,6 +7,8 @@
 // the same. So no other application code will need to change.
 
 import { alumni, batches, departments, notices, users, Alumni } from "./mock-data";
+import Undici from "undici-types";
+import errors = Undici.errors;
 
 export async function getPublishedNotices() {
     await delay();
@@ -109,4 +111,21 @@ export async function verifyLogin(email: string, password: string) {
     const profile = alumni.find((a) => a.email === user.email) || null;
 
     return { id: user.id, email: user.email, role: user.role, profile };
+}
+
+export async function getPendingRegistrations() {
+    await delay();
+    return alumni.filter((a) => a.status === "PENDING").map(withRefs);
+}
+
+export async function setAlumniStatus(id: string, status: "APPROVED" | "REJECTED") {
+    await delay();
+
+    const record = alumni.find((a) => a.id === id);
+    if (!record) {
+        throw new Error("NOT_FOUND");
+    }
+
+    record.status = status;
+    return record;
 }

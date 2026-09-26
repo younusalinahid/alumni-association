@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getAlumniBySlug } from "@/lib/mock-db";
 import Avatar from "@/components/ui/Avatar";
+export const dynamic = "force-dynamic";
 
 type ProfilePageProps = {
     params: Promise<{ slug: string }>;
