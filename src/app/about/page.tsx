@@ -1,12 +1,15 @@
-export default function AboutPage() {
+import { getPageContent } from "@/lib/mock-db";
+
+export const dynamic = "force-dynamic";
+
+export default async function AboutPage() {
+    const content = await getPageContent();
+
     return (
         <div className="mx-auto max-w-6xl px-4 py-10">
-            <h1 className="text-2xl font-bold">About Us</h1>
+            <h1 className="text-2xl font-bold">{content["about.title"]}</h1>
             <p className="mt-3 max-w-2xl text-zinc-600">
-                The Alumni Association connects former students with the institution
-                and with each other. We organize reunions, share career opportunities,
-                and keep everyone informed through notices and events — helping our
-                graduates stay in touch long after they leave campus.
+                {content["about.description"]}
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3">

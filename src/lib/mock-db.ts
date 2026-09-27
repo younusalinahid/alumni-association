@@ -16,7 +16,7 @@ import {
     galleryImages,
     Alumni,
     Notice,
-    GalleryImage, GalleryAlbum
+    GalleryImage, GalleryAlbum, pageContent
 } from "./mock-data";import Undici from "undici-types";
 
 function delay(ms: number = 150): Promise<void> {
@@ -296,4 +296,27 @@ export async function deleteImage(id: string) {
     }
 
     galleryImages.splice(index, 1);
+}
+
+export async function getPageContent(): Promise<Record<string, string>> {
+    await delay();
+
+    const map: Record<string, string> = {};
+    for (const item of pageContent) {
+        map[item.key] = item.value;
+    }
+    return map;
+}
+
+export async function updatePageContent(key: string, value: string) {
+    await delay();
+
+    const record = pageContent.find((item) => item.key === key);
+    if (record) {
+        record.value = value;
+    } else {
+        pageContent.push({ key, value });
+    }
+
+    return { key, value };
 }

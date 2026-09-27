@@ -2,9 +2,6 @@ export type Batch = { id: string; name: string };
 export type Department = { id: string; name: string };
 
 export type AlumniStatus = "PENDING" | "APPROVED" | "REJECTED";
-export type NoticeStatus = "DRAFT" | "PUBLISHED";
-export type Role = "ADMIN" | "ALUMNI";
-
 
 export type Alumni = {
     id: string;
@@ -21,6 +18,7 @@ export type Alumni = {
     photoUrl: string | null;
 };
 
+export type Role = "ADMIN" | "ALUMNI";
 
 export type User = {
     id: string;
@@ -28,6 +26,8 @@ export type User = {
     password: string;
     role: Role;
 };
+
+export type NoticeStatus = "DRAFT" | "PUBLISHED";
 
 export type Notice = {
     id: string;
@@ -51,12 +51,18 @@ export type GalleryAlbum = {
     coverImage: string;
 };
 
+export type PageContent = {
+    key: string;
+    value: string;
+};
+
 type MockStore = {
     alumni: Alumni[];
     users: User[];
     notices: Notice[];
     galleryAlbums: GalleryAlbum[];
     galleryImages: GalleryImage[];
+    pageContent: PageContent[];
 };
 
 const globalForMockDb = globalThis as unknown as { __mockStore?: MockStore };
@@ -103,7 +109,7 @@ if (!globalForMockDb.__mockStore) {
                 departmentId: "eee",
                 address: "Sylhet, Bangladesh",
                 bio: "Power systems engineer.",
-                status: "PENDING",
+                status: "APPROVED",
                 photoUrl: null,
             },
         ],
@@ -132,6 +138,16 @@ if (!globalForMockDb.__mockStore) {
             { id: "gi4", albumId: "g2", imageUrl: "/images/gallery/image4.jpg", caption: "Certificate handover" },
             { id: "gi5", albumId: "g2", imageUrl: "/images/gallery/image5.png", caption: "Stage view" },
         ],
+        pageContent: [
+            { key: "homepage.hero.title", value: "Welcome to Our Alumni Community" },
+            { key: "homepage.hero.subtitle", value: "Reconnecting Friends · Building Networks · Shaping the Future" },
+            { key: "about.title", value: "About Us" },
+            {
+                key: "about.description",
+                value:
+                    "The Alumni Association connects former students with the institution and with each other. We organize reunions, share career opportunities, and keep everyone informed through notices and events — helping our graduates stay in touch long after they leave campus.",
+            },
+        ],
     };
 }
 
@@ -140,6 +156,7 @@ export const users = globalForMockDb.__mockStore.users;
 export const notices = globalForMockDb.__mockStore.notices;
 export const galleryAlbums = globalForMockDb.__mockStore.galleryAlbums;
 export const galleryImages = globalForMockDb.__mockStore.galleryImages;
+export const pageContent = globalForMockDb.__mockStore.pageContent;
 
 export const batches: Batch[] = [
     { id: "b2018", name: "Batch 2018" },

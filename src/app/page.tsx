@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import {getStats, getPublishedNotices} from "@/lib/mock-db";
 import StatCard from "@/components/ui/StatCard";
+import { getStats, getPublishedNotices, getPageContent } from "@/lib/mock-db";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
     const stats = await getStats();
     const notices = await getPublishedNotices();
+    const content = await getPageContent();
 
     return (
         <div>
@@ -24,10 +25,10 @@ export default async function HomePage() {
 
                 <div className="relative z-10 w-full px-4">
                     <h1 className="text-3xl font-bold md:text-4xl">
-                        Welcome to Our Alumni Community
+                        {content["homepage.hero.title"]}
                     </h1>
                     <p className="mx-auto mt-3 max-w-xl text-zinc-100">
-                        Reconnecting Friends · Building Networks · Shaping the Future
+                        {content["homepage.hero.subtitle"]}
                     </p>
                     <div className="mt-6 flex justify-center gap-3">
                         <Link href="/register" className="rounded-md bg-white px-5 py-2 font-medium text-brand-700">
