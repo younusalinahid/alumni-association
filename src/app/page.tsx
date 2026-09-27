@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {getStats, getPublishedNotices} from "@/lib/mock-db";
 import StatCard from "@/components/ui/StatCard";
+
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
@@ -109,7 +110,11 @@ export default async function HomePage() {
                             </div>
                             <div className="flex-1">
                                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                    <h3 className="font-bold text-zinc-800">{n.title}</h3>
+                                    <h3 className="font-bold text-zinc-800">
+                                        <Link href={`/notice/${n.slug}`} className="hover:text-brand-600">
+                                            {n.title}
+                                        </Link>
+                                    </h3>
                                     <span className="text-xs text-zinc-400">
               {new Date(n.publishedAt).toLocaleDateString("en-GB", {
                   day: "2-digit",

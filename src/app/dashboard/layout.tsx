@@ -46,6 +46,12 @@ export default async function DashboardLayout({
                 >
                     <span>📝</span> Registrations
                 </Link>
+                <Link
+                    href="/dashboard/notices"
+                    className="flex items-center gap-2 rounded-md px-3 py-2 font-medium text-zinc-600 hover:bg-brand-50 hover:text-brand-700"
+                >
+                    <span>📰</span> Notices
+                </Link>
             </aside>
             <div className="flex-1">{children}</div>
         </div>

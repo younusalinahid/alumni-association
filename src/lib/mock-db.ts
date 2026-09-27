@@ -215,3 +215,9 @@ export async function deleteNotice(id: string) {
 
     notices.splice(index, 1);
 }
+
+export async function getNoticeBySlug(slug: string) {
+    await delay();
+    const found = notices.find((n) => n.slug === slug && n.status === "PUBLISHED");
+    return found || null;
+}
