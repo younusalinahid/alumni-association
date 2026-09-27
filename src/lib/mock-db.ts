@@ -6,7 +6,18 @@
 // each function, while keeping the function names and return shapes
 // the same. So no other application code will need to change.
 
-import {alumni, batches, departments, notices, users, galleryAlbums, galleryImages, Alumni, Notice} from "./mock-data";import Undici from "undici-types";
+import {
+    alumni,
+    batches,
+    departments,
+    notices,
+    users,
+    galleryAlbums,
+    galleryImages,
+    Alumni,
+    Notice,
+    GalleryImage, GalleryAlbum
+} from "./mock-data";import Undici from "undici-types";
 
 function delay(ms: number = 150): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -61,6 +72,17 @@ type ContactMessageInput = {
 type CreateNoticeInput = {
     title: string;
     body: string;
+};
+
+type CreateAlbumInput = {
+    title: string;
+    coverImage: string;
+};
+
+type AddImageInput = {
+    albumId: string;
+    imageUrl: string;
+    caption: string;
 };
 
 export async function createRegistration(input: CreateRegistrationInput) {
@@ -161,11 +183,6 @@ export async function getPublishedNotices() {
     return notices.filter((n) => n.status === "PUBLISHED");
 }
 
-type CreateNoticeInput = {
-    title: string;
-    body: string;
-};
-
 export async function getAllNotices() {
     await delay();
     return notices;
@@ -220,4 +237,63 @@ export async function getNoticeBySlug(slug: string) {
     await delay();
     const found = notices.find((n) => n.slug === slug && n.status === "PUBLISHED");
     return found || null;
+}
+
+export async function createAlbum(input: CreateAlbumInput) {
+    await delay();
+
+    const newAlbum: GalleryAlbum = {
+        id: `g${galleryAlbums.length + 1}`,
+        title: input.title,
+        coverImage: input.coverImage,
+    };
+
+    galleryAlbums.push(newAlbum);
+    return newAlbum;
+}
+
+export async function deleteAlbum(id: string) {
+    await delay();
+
+    const albumIndex = galleryAlbums.findIndex((a) => a.id === id);
+    if (albumIndex === -1) {
+        throw new Error("NOT_FOUND");
+    }
+
+    galleryAlbums.splice(albumIndex, 1);
+    for (let i = galleryImages.length - 1; i >= 0; i--) {
+        if (galleryImages[i].albumId === id) {
+            galleryImages.splice(i, 1);
+        }
+    }
+}
+
+export async function addImageToAlbum(input: AddImageInput) {
+    await delay();
+
+    const album = galleryAlbums.find((a) => a.id === input.albumId);
+    if (!album) {
+        throw new Error("ALBUM_NOT_FOUND");
+    }
+
+    const newImage: GalleryImage = {
+        id: `gi${galleryImages.length + 1}`,
+        albumId: input.albumId,
+        imageUrl: input.imageUrl,
+        caption: input.caption,
+    };
+
+    galleryImages.push(newImage);
+    return newImage;
+}
+
+export async function deleteImage(id: string) {
+    await delay();
+
+    const index = galleryImages.findIndex((img) => img.id === id);
+    if (index === -1) {
+        throw new Error("NOT_FOUND");
+    }
+
+    galleryImages.splice(index, 1);
 }
