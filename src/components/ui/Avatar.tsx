@@ -1,31 +1,35 @@
+import Image from "next/image";
+
 type AvatarProps = {
     name: string;
     photoUrl?: string | null;
     size?: number;
 };
 
-export default function Avatar({name, photoUrl, size = 64}: AvatarProps) {
-    const initial = name.trim().charAt(0).toUpperCase();
-
-    if (photoUrl) {
-        return (
-            <img
-                src={photoUrl}
-                alt={name}
-                width={size}
-                height={size}
-                className="rounded-full object-cover"
-                style={{width: size, height: size}}
-            />
-        );
-    }
+export default function Avatar({ name, photoUrl, size = 100 }: AvatarProps) {
+    const initials = name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
 
     return (
         <div
-            className="flex items-center justify-center rounded-full bg-brand-100 font-semibold text-brand-700"
-            style={{ width: size, height: size, fontSize: size / 2.2 }}
+            className="relative flex items-center justify-center overflow-hidden rounded-full bg-blue-100 text-blue-700 font-bold"
+            style={{ width: size, height: size, fontSize: size / 2.5 }}
         >
-            {initial}
+            {photoUrl ? (
+                <Image
+                    src={photoUrl}
+                    alt={name}
+                    width={size}
+                    height={size}
+                    className="object-cover"
+                />
+            ) : (
+                <span>{initials}</span>
+            )}
         </div>
     );
 }

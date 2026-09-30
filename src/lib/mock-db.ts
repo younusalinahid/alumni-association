@@ -43,9 +43,33 @@ export async function getStats() {
     };
 }
 
-export async function getApprovedAlumni() {
+export async function getApprovedAlumni(filters?: {
+    search?: string;
+    batchId?: string;
+    departmentId?: string;
+}) {
     await delay();
-    return alumni.filter((a) => a.status === "APPROVED").map(withRefs);
+
+    let result = alumni.filter((a) => a.status === "APPROVED");
+
+    if (filters?.search) {
+        const searchLower = filters.search.toLowerCase();
+        result = result.filter(
+            (a) =>
+                a.name.toLowerCase().includes(searchLower) ||
+                a.regNo.toLowerCase().includes(searchLower)
+        );
+    }
+
+    if (filters?.batchId) {
+        result = result.filter((a) => a.batchId === filters.batchId);
+    }
+
+    if (filters?.departmentId) {
+        result = result.filter((a) => a.departmentId === filters.departmentId);
+    }
+
+    return result.map(withRefs);
 }
 
 export async function getAlumniBySlug(slug: string) {
