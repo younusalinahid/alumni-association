@@ -36,7 +36,7 @@ export default async function AlumniDirectoryPage({ searchParams }: AlumniDirect
                 </div>
             </div>
 
-            <div className="mx-auto max-w px-4 py-8">
+            <div className="mx-auto max-w-7xl px-4 py-8">
                 {/* Search and Filter Section */}
                 <form className="mb-8 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                     <div className="grid gap-4 md:grid-cols-[2fr_1fr_1fr_auto]">
