@@ -2,6 +2,8 @@ export type Batch = { id: string; name: string };
 export type Department = { id: string; name: string };
 
 export type AlumniStatus = "PENDING" | "APPROVED" | "REJECTED";
+export type NoticeCategory = "EVENT" | "ACADEMIC" | "CAREER" | "GENERAL" | "URGENT";
+
 
 export type Alumni = {
     id: string;
@@ -38,6 +40,7 @@ export type Notice = {
     body: string;
     status: NoticeStatus;
     publishedAt: string;
+    category: NoticeCategory;
 };
 
 export type GalleryImage = {
@@ -225,9 +228,55 @@ if (!globalForMockDb.__mockStore) {
                 id: "n1",
                 title: "Annual Alumni Reunion 2026",
                 slug: "annual-alumni-reunion-2026",
-                body: "We are excited to announce the Annual Alumni Reunion 2026. Stay connected!",
+                body: "We are excited to announce the Annual Alumni Reunion 2026. All former students are cordially invited to join us for a day of memories, networking, and celebration. The event will be held at the main campus auditorium. Registration is now open.",
                 status: "PUBLISHED",
                 publishedAt: "2026-04-15",
+                category: "EVENT",
+            },
+            {
+                id: "n2",
+                title: "Scholarship Applications Open for 2026",
+                slug: "scholarship-applications-2026",
+                body: "The Alumni Association is pleased to announce that scholarship applications for the 2026 academic year are now open. Eligible students can apply for merit-based and need-based scholarships. The deadline for submission is May 30, 2026. Please visit the scholarship office for more details.",
+                status: "PUBLISHED",
+                publishedAt: "2026-04-10",
+                category: "ACADEMIC",
+            },
+            {
+                id: "n3",
+                title: "Job Opportunity: Software Engineer at TechNova",
+                slug: "job-opportunity-technova",
+                body: "TechNova Ltd. is hiring Software Engineers for their Dhaka office. Alumni members are encouraged to apply. Requirements: B.Sc in CSE, 2+ years of experience in React and Node.js. Interested candidates should send their CV to careers@technova.com by April 25, 2026.",
+                status: "PUBLISHED",
+                publishedAt: "2026-04-08",
+                category: "CAREER",
+            },
+            {
+                id: "n4",
+                title: "Alumni Cricket Tournament 2026",
+                slug: "alumni-cricket-tournament-2026",
+                body: "Get ready for the most exciting event of the year! The Alumni Cricket Tournament 2026 will be held on May 20, 2026, at the university sports ground. Teams from different batches are invited to participate. Register your team before May 10.",
+                status: "PUBLISHED",
+                publishedAt: "2026-04-05",
+                category: "EVENT",
+            },
+            {
+                id: "n5",
+                title: "Urgent: Update Your Contact Information",
+                slug: "update-contact-information",
+                body: "All alumni members are requested to update their contact information (phone number and email address) in the association database. This will help us keep you informed about upcoming events and opportunities. Please log in to your profile and update your details.",
+                status: "PUBLISHED",
+                publishedAt: "2026-04-01",
+                category: "URGENT",
+            },
+            {
+                id: "n6",
+                title: "New Alumni Directory Launched",
+                slug: "new-alumni-directory-launched",
+                body: "We are proud to announce the launch of our new online Alumni Directory. Now you can easily find and connect with fellow alumni, search by batch, department, or location. Visit the directory to explore this new feature and reconnect with your classmates.",
+                status: "PUBLISHED",
+                publishedAt: "2026-03-28",
+                category: "GENERAL",
             },
         ],
         galleryAlbums: [

@@ -16,7 +16,7 @@ import {
     galleryImages,
     Alumni,
     Notice,
-    GalleryImage, GalleryAlbum, pageContent, verifications, Verification
+    GalleryImage, GalleryAlbum, pageContent, verifications, Verification, NoticeCategory
 } from "./mock-data";
 import Undici from "undici-types";
 import QRCode from "qrcode";
@@ -98,6 +98,7 @@ type ContactMessageInput = {
 type CreateNoticeInput = {
     title: string;
     body: string;
+    category: NoticeCategory;
 };
 
 type CreateAlbumInput = {
@@ -232,6 +233,7 @@ export async function createNotice(input: CreateNoticeInput) {
         body: input.body,
         status: "DRAFT",
         publishedAt: new Date().toISOString().slice(0, 10),
+        category: input.category,
     };
 
     notices.push(newNotice);
