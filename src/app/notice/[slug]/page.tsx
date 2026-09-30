@@ -27,7 +27,6 @@ export default async function NoticeDetailPage({ params }: NoticeDetailProps) {
 
     const meta = categoryMeta[notice.category] || categoryMeta.GENERAL;
 
-    // অন্যান্য নোটিশ (Related)
     const allNotices = await getPublishedNotices();
     const related = allNotices
         .filter((n) => n.id !== notice.id)

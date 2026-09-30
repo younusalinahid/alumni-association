@@ -280,15 +280,72 @@ if (!globalForMockDb.__mockStore) {
             },
         ],
         galleryAlbums: [
-            { id: "g1", title: "Annual Reunion 2024", coverImage: "/images/gallery/image1.png" },
-            { id: "g2", title: "Convocation Ceremony", coverImage: "/images/gallery/image4.jpg" },
+            {
+                id: "g1",
+                title: "Annual Reunion 2024",
+                coverImage: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop",
+            },
+            {
+                id: "g2",
+                title: "Convocation Ceremony",
+                coverImage: "https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?w=800&h=600&fit=crop",
+            },
+            {
+                id: "g3",
+                title: "Alumni Meetup 2025",
+                coverImage: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&h=600&fit=crop",
+            },
+            {
+                id: "g4",
+                title: "Sports Day 2025",
+                coverImage: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop",
+            },
+            {
+                id: "g5",
+                title: "Career Fair 2025",
+                coverImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
+            },
+            {
+                id: "g6",
+                title: "Cultural Night 2024",
+                coverImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop",
+            },
         ],
         galleryImages: [
-            { id: "gi1", albumId: "g1", imageUrl: "/images/gallery/image1.png", caption: "Welcome speech" },
-            { id: "gi2", albumId: "g1", imageUrl: "/images/gallery/image2.png", caption: "Group photo" },
-            { id: "gi3", albumId: "g1", imageUrl: "/images/gallery/image3.png", caption: "Dinner session" },
-            { id: "gi4", albumId: "g2", imageUrl: "/images/gallery/image4.jpg", caption: "Certificate handover" },
-            { id: "gi5", albumId: "g2", imageUrl: "/images/gallery/image5.png", caption: "Stage view" },
+            // Album 1 - Annual Reunion
+            { id: "gi1", albumId: "g1", imageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=800&fit=crop", caption: "Welcome speech" },
+            { id: "gi2", albumId: "g1", imageUrl: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&h=800&fit=crop", caption: "Group photo" },
+            { id: "gi3", albumId: "g1", imageUrl: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=800&fit=crop", caption: "Dinner session" },
+            { id: "gi4", albumId: "g1", imageUrl: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=800&fit=crop", caption: "Networking hour" },
+
+            // Album 2 - Convocation
+            { id: "gi5", albumId: "g2", imageUrl: "https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?w=800&h=800&fit=crop", caption: "Graduates celebrating" },
+            { id: "gi6", albumId: "g2", imageUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=800&fit=crop", caption: "Certificate handover" },
+            { id: "gi7", albumId: "g2", imageUrl: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&h=800&fit=crop", caption: "Stage view" },
+            { id: "gi8", albumId: "g2", imageUrl: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=800&fit=crop", caption: "Graduation caps" },
+            // Album 3 - Alumni Meetup
+            { id: "gi9", albumId: "g3", imageUrl: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&h=800&fit=crop", caption: "Networking session" },
+            { id: "gi10", albumId: "g3", imageUrl: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&h=800&fit=crop", caption: "Guest speaker" },
+            { id: "gi11", albumId: "g3", imageUrl: "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&h=800&fit=crop", caption: "Panel discussion" },
+            { id: "gi12", albumId: "g3", imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&h=800&fit=crop", caption: "Team photo" },
+
+            // Album 4 - Sports Day
+            { id: "gi13", albumId: "g4", imageUrl: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=800&fit=crop", caption: "Cricket match" },
+            { id: "gi14", albumId: "g4", imageUrl: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=800&fit=crop", caption: "Football game" },
+            { id: "gi15", albumId: "g4", imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=800&fit=crop", caption: "Athletics" },
+            { id: "gi16", albumId: "g4", imageUrl: "https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=800&h=800&fit=crop", caption: "Prize giving" },
+
+            // Album 5 - Career Fair
+            { id: "gi17", albumId: "g5", imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=800&fit=crop", caption: "Opening ceremony" },
+            { id: "gi18", albumId: "g5", imageUrl: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&h=800&fit=crop", caption: "Company booths" },
+            { id: "gi19", albumId: "g5", imageUrl: "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&h=800&fit=crop", caption: "Interview session" },
+            { id: "gi20", albumId: "g5", imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=800&fit=crop", caption: "Career guidance" },
+
+            // Album 6 - Cultural Night
+            { id: "gi21", albumId: "g6", imageUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=800&fit=crop", caption: "Stage performance" },
+            { id: "gi22", albumId: "g6", imageUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&h=800&fit=crop", caption: "Music night" },
+            { id: "gi23", albumId: "g6", imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=800&fit=crop", caption: "Dance performance" },
+            { id: "gi24", albumId: "g6", imageUrl: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=800&fit=crop", caption: "Audience view" },
         ],
         pageContent: [
             { key: "homepage.hero.title", value: "Welcome to Our Alumni Community" },

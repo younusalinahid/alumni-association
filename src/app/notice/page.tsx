@@ -4,7 +4,6 @@ import type { NoticeCategory } from "@/lib/mock-data";
 
 export const dynamic = "force-dynamic";
 
-// ক্যাটাগরি অনুযায়ী আইকন, রঙ এবং লেবেল
 const categoryMeta: Record<NoticeCategory, { icon: string; color: string; label: string }> = {
     EVENT: { icon: "🎉", color: "bg-purple-100 text-purple-700", label: "Event" },
     ACADEMIC: { icon: "🎓", color: "bg-blue-100 text-blue-700", label: "Academic" },
@@ -24,17 +23,14 @@ export default async function NoticePage({ searchParams }: PageProps) {
 
     let notices = await getPublishedNotices();
 
-    // সর্বশেষ আগে দেখাও
     notices = notices.sort(
         (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
 
-    // ক্যাটাগরি ফিল্টার
     if (categoryFilter !== "ALL") {
         notices = notices.filter((n) => n.category === categoryFilter);
     }
 
-    // সার্চ ফিল্টার
     if (search) {
         const s = search.toLowerCase();
         notices = notices.filter(

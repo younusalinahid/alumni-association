@@ -18,7 +18,6 @@ import {
     Notice,
     GalleryImage, GalleryAlbum, pageContent, verifications, Verification, NoticeCategory
 } from "./mock-data";
-import Undici from "undici-types";
 import QRCode from "qrcode";
 
 function delay(ms: number = 150): Promise<void> {
