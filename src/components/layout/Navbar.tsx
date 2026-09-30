@@ -1,53 +1,44 @@
-import Link from "next/link";
-import Image from "next/image";
+"use client";
 
-const links = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/alumni", label: "Alumni" },
-    { href: "/notice", label: "Notice" },
-    { href: "/gallery", label: "Gallery" },
-    { href: "/contact", label: "Contact" },
-];
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+    const pathname = usePathname();
+
+    if (pathname.startsWith("/dashboard")) {
+        return null;
+    }
+
     return (
-        <header className="sticky top-0 z-10 border-b border-black/10 bg-white/90 backdrop-blur">
-            <div className="mx-auto flex max-w items-center justify-between px-4 py-3">
-                <Link href="/" className="flex items-center gap-2">
-                    <Image
-                        src="/images/logo.png"
-                        alt="Alumni Association logo"
-                        width={40}
-                        height={40}
-                        className="rounded-full"
-                    />
-                    <span className="font-bold text-brand-700">Alumni Association</span>
-                </Link>
-
-                <nav className="hidden gap-6 text-sm font-medium text-zinc-600 md:flex">
-                    {links.map((l) => (
-                        <Link key={l.href} href={l.href} className="hover:text-brand-600">
-                            {l.label}
-                        </Link>
-                    ))}
-                </nav>
-
-                <div className="flex gap-2">
-                    <Link
-                        href="/login"
-                        className="rounded-md px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
-                    >
-                        Login
-                    </Link>
-                    <Link
-                        href="/register"
-                        className="rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
-                    >
-                        Register
-                    </Link>
+        <nav className="border-b border-gray-200 bg-white px-6 py-4 flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-2">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-900 text-xs font-bold text-white">
+                    AA
                 </div>
+                <span className="font-semibold text-slate-800">Alumni Association</span>
             </div>
-        </header>
+
+            {/* Nav Links */}
+            <div className="hidden gap-6 text-sm font-medium text-slate-600 md:flex">
+                <Link href="/" className="hover:text-blue-600">Home</Link>
+                <Link href="/about" className="hover:text-blue-600">About</Link>
+                <Link href="/alumni" className="hover:text-blue-600">Alumni</Link>
+                <Link href="/notice" className="hover:text-blue-600">Notice</Link>
+                <Link href="/gallery" className="hover:text-blue-600">Gallery</Link>
+                <Link href="/contact" className="hover:text-blue-600">Contact</Link>
+            </div>
+
+            {/* Auth Buttons */}
+            <div className="flex items-center gap-3">
+                <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-blue-600">
+                    Login
+                </Link>
+                <Link href="/register" className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                    Register
+                </Link>
+            </div>
+        </nav>
     );
 }

@@ -143,6 +143,8 @@ export async function createRegistration(input: CreateRegistrationInput) {
         bio: "",
         status: "PENDING",
         photoUrl: input.photoUrl || null,
+        education: [],
+        experience: [],
     };
 
     alumni.push(newAlumnus);
@@ -387,4 +389,9 @@ export async function generateVerificationQr(alumniId: string): Promise<string> 
     const verifyUrl = `http://localhost:3000/verify/${verification.token}`;
     const qrDataUrl = await QRCode.toDataURL(verifyUrl);
     return qrDataUrl;
+}
+
+export async function getAllAlumni() {
+    await delay();
+    return alumni.map(withRefs);
 }

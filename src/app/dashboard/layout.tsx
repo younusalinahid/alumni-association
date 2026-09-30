@@ -1,7 +1,7 @@
-import Link from "next/link";
-import {cookies} from "next/headers";
-import {redirect} from "next/navigation";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import React from "react";
+import Sidebar from "@/app/dashboard/Sidebar";
 
 type SessionCookie = {
     email: string;
@@ -10,7 +10,7 @@ type SessionCookie = {
 
 async function getSession(): Promise<SessionCookie | null> {
     const cookieStore = await cookies();
-    const raw = cookieStore.get("mock_session")?.value;
+    const raw = cookieStore.get("mock_session" as any)?.value;
     if (!raw) return null;
 
     try {
@@ -32,40 +32,24 @@ export default async function DashboardLayout({
     }
 
     return (
-        <div className="mx-auto flex max-w gap-6 px-4 py-8">
-            <aside className="w-48 flex-shrink-0 space-y-1 text-sm">
-                <Link
-                    href="/dashboard"
-                    className="flex items-center gap-2 rounded-md bg-brand-50 px-3 py-2 font-medium text-brand-700"
-                >
-                    <span>📊</span> Dashboard
-                </Link>
-                <Link
-                    href="/dashboard/registrations"
-                    className="flex items-center gap-2 rounded-md px-3 py-2 font-medium text-zinc-600 hover:bg-brand-50 hover:text-brand-700"
-                >
-                    <span>📝</span> Registrations
-                </Link>
-                <Link
-                    href="/dashboard/notices"
-                    className="flex items-center gap-2 rounded-md px-3 py-2 font-medium text-zinc-600 hover:bg-brand-50 hover:text-brand-700"
-                >
-                    <span>📰</span> Notices
-                </Link>
-                <Link
-                    href="/dashboard/gallery"
-                    className="flex items-center gap-2 rounded-md px-3 py-2 font-medium text-zinc-600 hover:bg-brand-50 hover:text-brand-700"
-                >
-                    <span>🖼️</span> Gallery
-                </Link>
-                <Link
-                    href="/dashboard/cms"
-                    className="flex items-center gap-2 rounded-md px-3 py-2 font-medium text-zinc-600 hover:bg-brand-50 hover:text-brand-700"
-                >
-                    <span>📝</span> Website Content
-                </Link>
-            </aside>
-            <div className="flex-1">{children}</div>
+        <div className="flex min-h-screen bg-slate-50">
+            <Sidebar />
+            <main className="flex-1 overflow-y-auto">
+                <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
+                    <h1 className="text-lg font-semibold text-slate-800">
+                        Admin Panel
+                    </h1>
+                    <div className="flex items-center gap-3">
+                        <span className="text-sm text-slate-500">
+                            Welcome, {session.email}
+                        </span>
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">
+                            A
+                        </div>
+                    </div>
+                </header>
+                <div className="p-6">{children}</div>
+            </main>
         </div>
     );
 }
