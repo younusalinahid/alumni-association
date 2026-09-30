@@ -16,8 +16,10 @@ import {
     galleryImages,
     Alumni,
     Notice,
-    GalleryImage, GalleryAlbum, pageContent
-} from "./mock-data";import Undici from "undici-types";
+    GalleryImage, GalleryAlbum, pageContent, verifications, Verification
+} from "./mock-data";
+import Undici from "undici-types";
+import QRCode from "qrcode";
 
 function delay(ms: number = 150): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -319,4 +321,46 @@ export async function updatePageContent(key: string, value: string) {
     }
 
     return { key, value };
+}
+
+export async function getOrCreateVerification(alumniId: string) {
+    await delay();
+
+    const existing = verifications.find((v) => v.alumniId === alumniId && !v.revokedAt);
+    if (existing) {
+        return existing;
+    }
+
+    const newVerification: Verification = {
+        id: `v${verifications.length + 1}`,
+        alumniId,
+        token: `vtok-${alumniId}-${Math.random().toString(36).slice(2, 10)}`,
+        revokedAt: null,
+    };
+
+    verifications.push(newVerification);
+    return newVerification;
+}
+
+export async function verifyToken(token: string) {
+    await delay();
+
+    const verification = verifications.find((v) => v.token === token);
+    if (!verification || verification.revokedAt) {
+        return null;
+    }
+
+    const record = alumni.find((a) => a.id === verification.alumniId && a.status === "APPROVED");
+    if (!record) {
+        return null;
+    }
+
+    return withRefs(record);
+}
+
+export async function generateVerificationQr(alumniId: string): Promise<string> {
+    const verification = await getOrCreateVerification(alumniId);
+    const verifyUrl = `http://localhost:3000/verify/${verification.token}`;
+    const qrDataUrl = await QRCode.toDataURL(verifyUrl);
+    return qrDataUrl;
 }

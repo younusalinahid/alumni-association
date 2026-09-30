@@ -16,6 +16,8 @@ export type Alumni = {
     bio: string;
     status: AlumniStatus;
     photoUrl: string | null;
+    education: Education[];
+    experience: Experience[];
 };
 
 export type Role = "ADMIN" | "ALUMNI";
@@ -63,6 +65,29 @@ type MockStore = {
     galleryAlbums: GalleryAlbum[];
     galleryImages: GalleryImage[];
     pageContent: PageContent[];
+    verifications: Verification[];
+};
+
+export type Verification = {
+    id: string;
+    alumniId: string;
+    token: string;
+    revokedAt: string | null;
+};
+
+export type Education = {
+    id: string;
+    institution: string;
+    degree: string;
+    year: string;
+};
+
+export type Experience = {
+    id: string;
+    company: string;
+    role: string;
+    start: string;
+    end: string;
 };
 
 const globalForMockDb = globalThis as unknown as { __mockStore?: MockStore };
@@ -83,6 +108,12 @@ if (!globalForMockDb.__mockStore) {
                 bio: "Software engineer, currently building fintech products.",
                 status: "APPROVED",
                 photoUrl: "/mock/rahman.jpg",
+                education: [
+                    { id: "e2", institution: "Dept. of CSE", degree: "B.Sc in CSE", year: "2018" },
+                ],
+                experience: [
+                    { id: "x1", company: "TechNova Ltd.", role: "Senior Software Engineer", start: "2019", end: "Present" },
+                ],
             },
             {
                 id: "a2",
@@ -97,6 +128,8 @@ if (!globalForMockDb.__mockStore) {
                 bio: "Marketing lead at a growing retail chain.",
                 status: "APPROVED",
                 photoUrl: null,
+                education: [],
+                experience: [],
             },
             {
                 id: "a3",
@@ -111,6 +144,8 @@ if (!globalForMockDb.__mockStore) {
                 bio: "Power systems engineer.",
                 status: "APPROVED",
                 photoUrl: null,
+                education: [],
+                experience: [],
             },
         ],
         users: [
@@ -148,6 +183,10 @@ if (!globalForMockDb.__mockStore) {
                     "The Alumni Association connects former students with the institution and with each other. We organize reunions, share career opportunities, and keep everyone informed through notices and events — helping our graduates stay in touch long after they leave campus.",
             },
         ],
+        verifications: [
+            { id: "v1", alumniId: "a1", token: "vtok-md-rahman-9f3a", revokedAt: null },
+            { id: "v2", alumniId: "a2", token: "vtok-fatima-akter-7c1e", revokedAt: null },
+        ],
     };
 }
 
@@ -157,6 +196,7 @@ export const notices = globalForMockDb.__mockStore.notices;
 export const galleryAlbums = globalForMockDb.__mockStore.galleryAlbums;
 export const galleryImages = globalForMockDb.__mockStore.galleryImages;
 export const pageContent = globalForMockDb.__mockStore.pageContent;
+export const verifications = globalForMockDb.__mockStore.verifications;
 
 export const batches: Batch[] = [
     { id: "b2018", name: "Batch 2018" },
