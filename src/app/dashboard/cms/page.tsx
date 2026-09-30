@@ -1,94 +1,109 @@
-"use client";
+import { getPageContent } from "@/lib/mock-db";
+import CmsForm from "@/app/dashboard/CmsForm";
 
-import { useEffect, useState } from "react";
+export const dynamic = "force-dynamic";
 
-const fields: { key: string; label: string; multiline?: boolean }[] = [
-    { key: "homepage.hero.title", label: "Homepage Hero Title" },
-    { key: "homepage.hero.subtitle", label: "Homepage Hero Subtitle" },
-    { key: "about.title", label: "About Page Title" },
-    { key: "about.description", label: "About Page Description", multiline: true },
-];
-
-export default function AdminCmsPage() {
-    const [content, setContent] = useState<Record<string, string>>({});
-    const [loading, setLoading] = useState(true);
-    const [savingKey, setSavingKey] = useState<string | null>(null);
-    const [savedKey, setSavedKey] = useState<string | null>(null);
-
-    async function load() {
-        setLoading(true);
-        const res = await fetch("/api/cms");
-        setContent(await res.json());
-        setLoading(false);
-    }
-
-    useEffect(() => {
-        load();
-    }, []);
-
-    function updateField(key: string, value: string) {
-        setContent((prev) => ({ ...prev, [key]: value }));
-    }
-
-    async function handleSave(key: string) {
-        setSavingKey(key);
-        setSavedKey(null);
-
-        await fetch("/api/cms", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ key, value: content[key] }),
-        });
-
-        setSavingKey(null);
-        setSavedKey(key);
-        setTimeout(() => setSavedKey(null), 2000);
-    }
-
-    if (loading) {
-        return <p className="text-sm text-zinc-400">Loading...</p>;
-    }
+export default async function CmsPage() {
+    const content = await getPageContent();
 
     return (
-        <div>
-            <h1 className="text-xl font-bold">Website Content</h1>
-            <p className="mt-1 text-sm text-zinc-500">Edit text shown on the public homepage and about page.</p>
+        <div className="space-y-6">
+            <div>
+                <h1 className="text-2xl font-bold text-slate-800">Website Content</h1>
+                <p className="mt-1 text-sm text-slate-500">
+                    Edit text shown on the public homepage and about page.
+                </p>
+            </div>
 
-            <div className="mt-6 space-y-5">
-                {fields.map((field) => (
-                    <div key={field.key} className="rounded-lg border border-black/10 bg-white p-4">
-                        <label className="block text-sm">
-                            <span className="mb-1 block font-medium text-zinc-700">{field.label}</span>
-                            {field.multiline ? (
-                                <textarea
-                                    rows={4}
-                                    value={content[field.key] ?? ""}
-                                    onChange={(e) => updateField(field.key, e.target.value)}
-                                    className="w-full rounded-md border border-black/10 px-3 py-2 text-sm"
-                                />
-                            ) : (
-                                <input
-                                    value={content[field.key] ?? ""}
-                                    onChange={(e) => updateField(field.key, e.target.value)}
-                                    className="w-full rounded-md border border-black/10 px-3 py-2 text-sm"
-                                />
-                            )}
-                        </label>
+            {/* Homepage Section */}
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-lg font-semibold text-slate-800">Homepage</h2>
+                <div className="space-y-4">
+                    <CmsForm
+                        label="Homepage Hero Title"
+                        contentKey="homepage.hero.title"
+                        defaultValue={content["homepage.hero.title"] || ""}
+                    />
+                    <CmsForm
+                        label="Homepage Hero Subtitle"
+                        contentKey="homepage.hero.subtitle"
+                        defaultValue={content["homepage.hero.subtitle"] || ""}
+                    />
+                </div>
+            </div>
 
-                        <div className="mt-2 flex items-center gap-3">
-                            <button
-                                onClick={() => handleSave(field.key)}
-                                disabled={savingKey === field.key}
-                                className="cursor-pointer rounded-md bg-brand-600 px-4 py-1.5 text-xs font-medium text-white transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
-                            >
-                                {savingKey === field.key ? "Saving..." : "Save"}
-                            </button>
-                            {savedKey === field.key && (
-                                <span className="text-xs text-green-600">Saved!</span>
-                            )}
-                        </div>
+            {/* About Page Section */}
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-lg font-semibold text-slate-800">About Page</h2>
+                <div className="space-y-4">
+                    <CmsForm
+                        label="About Page Title"
+                        contentKey="about.title"
+                        defaultValue={content["about.title"] || ""}
+                    />
+                    <CmsForm
+                        label="About Page Description"
+                        contentKey="about.description"
+                        defaultValue={content["about.description"] || ""}
+                        isTextarea
+                    />
+                </div>
+            </div>
+
+            {/* About Cards Section (Mission, Vision, Get Involved) */}
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-lg font-semibold text-slate-800">
+                    About - Info Cards
+                </h2>
+                <div className="grid gap-6 md:grid-cols-3">
+                    {/* Mission */}
+                    <div className="space-y-3 rounded-lg border border-gray-100 bg-slate-50 p-4">
+                        <h3 className="font-medium text-slate-700">Our Mission</h3>
+                        <CmsForm
+                            label="Title"
+                            contentKey="about.mission.title"
+                            defaultValue={content["about.mission.title"] || ""}
+                        />
+                        <CmsForm
+                            label="Description"
+                            contentKey="about.mission.description"
+                            defaultValue={content["about.mission.description"] || ""}
+                            isTextarea
+                        />
                     </div>
-                ))}
+
+                    {/* Vision */}
+                    <div className="space-y-3 rounded-lg border border-gray-100 bg-slate-50 p-4">
+                        <h3 className="font-medium text-slate-700">Our Vision</h3>
+                        <CmsForm
+                            label="Title"
+                            contentKey="about.vision.title"
+                            defaultValue={content["about.vision.title"] || ""}
+                        />
+                        <CmsForm
+                            label="Description"
+                            contentKey="about.vision.description"
+                            defaultValue={content["about.vision.description"] || ""}
+                            isTextarea
+                        />
+                    </div>
+
+                    {/* Get Involved */}
+                    <div className="space-y-3 rounded-lg border border-gray-100 bg-slate-50 p-4">
+                        <h3 className="font-medium text-slate-700">Get Involved</h3>
+                        <CmsForm
+                            label="Title"
+                            contentKey="about.involved.title"
+                            defaultValue={content["about.involved.title"] || ""}
+                        />
+                        <CmsForm
+                            label="Description"
+                            contentKey="about.involved.description"
+                            defaultValue={content["about.involved.description"] || ""}
+                            isTextarea
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

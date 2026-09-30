@@ -247,8 +247,31 @@ if (!globalForMockDb.__mockStore) {
             { key: "about.title", value: "About Us" },
             {
                 key: "about.description",
-                value:
-                    "The Alumni Association connects former students with the institution and with each other. We organize reunions, share career opportunities, and keep everyone informed through notices and events — helping our graduates stay in touch long after they leave campus.",
+                value: "The Alumni Association connects former students with the institution and with each other. We organize reunions, share career opportunities, and keep everyone informed through notices and events — helping our graduates stay in touch long after they leave campus.",
+            },
+            {
+                key: "about.mission.title",
+                value: "Our Mission",
+            },
+            {
+                key: "about.mission.description",
+                value: "To build a lifelong network among graduates and their alma mater.",
+            },
+            {
+                key: "about.vision.title",
+                value: "Our Vision",
+            },
+            {
+                key: "about.vision.description",
+                value: "A connected community where every alumnus can find opportunity and support.",
+            },
+            {
+                key: "about.involved.title",
+                value: "Get Involved",
+            },
+            {
+                key: "about.involved.description",
+                value: "Join events, mentor students, or simply stay in touch with old friends.",
             },
         ],
         verifications: [
